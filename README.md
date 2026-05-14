@@ -134,7 +134,7 @@ await cc.tiktok.profile({ handle: 'khaby.lame' }, { signal: controller.signal })
 - API docs: [creatorcrawl.com/mcp-docs](https://creatorcrawl.com/mcp-docs)
 - Pricing: [creatorcrawl.com/#pricing](https://creatorcrawl.com/#pricing)
 - MCP server: native MCP at `app.creatorcrawl.com/api/mcp` for AI agents
-- Status / issues: [github.com/simonbalfe/creator-crawl/issues](https://github.com/simonbalfe/creator-crawl/issues)
+- Status / issues: [github.com/simonbalfe/creatorcrawl-sdk-typescript/issues](https://github.com/simonbalfe/creatorcrawl-sdk-typescript/issues)
 
 ## License
 
