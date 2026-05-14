@@ -9,19 +9,37 @@ export {
 export type { CreatorCrawlOptions, JsonRecord, RequestOptions } from './types'
 export type {
   TikTokCommentsParams,
+  TikTokCreatorTranscriptsParams,
+  TikTokFollowersParams,
+  TikTokFollowingParams,
+  TikTokLiveParams,
+  TikTokPopularCreatorsParams,
+  TikTokPopularHashtagsParams,
+  TikTokPopularSongsParams,
+  TikTokPopularVideosParams,
   TikTokProfileParams,
   TikTokProfileVideosParams,
+  TikTokSearchHashtagParams,
   TikTokSearchKeywordParams,
+  TikTokSearchTopParams,
   TikTokSearchUsersParams,
+  TikTokSongDetailsParams,
+  TikTokSongVideosParams,
   TikTokTranscriptParams,
+  TikTokTrendingFeedParams,
   TikTokVideoInfoParams,
 } from './resources/tiktok'
 export type {
+  InstagramBasicProfileParams,
   InstagramCommentsParams,
+  InstagramEmbedParams,
+  InstagramHighlightsDetailsParams,
   InstagramPostInfoParams,
   InstagramPostsParams,
   InstagramProfileParams,
   InstagramReelsParams,
+  InstagramSearchReelsParams,
+  InstagramStoryHighlightsParams,
   InstagramTranscriptParams,
 } from './resources/instagram'
 export type {
@@ -30,8 +48,10 @@ export type {
   YouTubeChannelVideosParams,
   YouTubeCommentsParams,
   YouTubePlaylistParams,
+  YouTubeSearchHashtagParams,
   YouTubeSearchParams,
   YouTubeTranscriptParams,
+  YouTubeTrendingShortsParams,
   YouTubeVideoParams,
 } from './resources/youtube'
 export type {
