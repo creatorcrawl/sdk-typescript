@@ -1,0 +1,57 @@
+{
+  "name": "@creatorcrawl/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript SDK for the CreatorCrawl social media data API. Scrape TikTok, Instagram, YouTube, LinkedIn, Twitter/X, and Reddit profiles, posts, comments, transcripts, and ads.",
+  "license": "MIT",
+  "author": "CreatorCrawl <support@creatorcrawl.com>",
+  "homepage": "https://creatorcrawl.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonbalfe/creatorcrawl-sdk-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simonbalfe/creatorcrawl-sdk-typescript/issues"
+  },
+  "keywords": [
+    "creatorcrawl",
+    "social-media-api",
+    "tiktok-api",
+    "instagram-api",
+    "youtube-api",
+    "linkedin-api",
+    "twitter-api",
+    "reddit-api",
+    "scraper",
+    "sdk",
+    "mcp"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup",
+    "type-check": "tsc --noEmit",
+    "lint": "biome check .",
+    "prepublishOnly": "pnpm build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "tsup": "^8.3.5",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
