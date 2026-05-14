@@ -1,16 +1,16 @@
 {
   "name": "@creatorcrawl/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official TypeScript SDK for the CreatorCrawl social media data API. Scrape TikTok, Instagram, YouTube, LinkedIn, Twitter/X, and Reddit profiles, posts, comments, transcripts, and ads.",
   "license": "MIT",
   "author": "CreatorCrawl <support@creatorcrawl.com>",
   "homepage": "https://creatorcrawl.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simonbalfe/creatorcrawl-sdk-typescript.git"
+    "url": "git+https://github.com/creatorcrawl/sdk-typescript.git"
   },
   "bugs": {
-    "url": "https://github.com/simonbalfe/creatorcrawl-sdk-typescript/issues"
+    "url": "https://github.com/creatorcrawl/sdk-typescript/issues"
   },
   "keywords": [
     "creatorcrawl",
