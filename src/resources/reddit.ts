@@ -1,5 +1,12 @@
 import type { CreatorCrawl } from '../client'
-import type { JsonRecord, RequestOptions } from '../types'
+import type {
+  Comment,
+  Envelope,
+  Post,
+  RequestOptions,
+  Subreddit,
+  SubredditWithPosts,
+} from '../types'
 
 export type RedditSearchParams = {
   query: string
@@ -33,22 +40,26 @@ export class Reddit {
   constructor(private readonly client: CreatorCrawl) {}
 
   search(params: RedditSearchParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/reddit/search', params, options)
+    return this.client.get<Envelope<Post[]>>('/reddit/search', params, options)
   }
 
   subredditDetails(params: RedditSubredditDetailsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/reddit/subreddit/details', params, options)
+    return this.client.get<Envelope<Subreddit | SubredditWithPosts>>(
+      '/reddit/subreddit/details',
+      params,
+      options,
+    )
   }
 
   subredditPosts(params: RedditSubredditPostsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/reddit/subreddit/posts', params, options)
+    return this.client.get<Envelope<Post[]>>('/reddit/subreddit/posts', params, options)
   }
 
   subredditSearch(params: RedditSubredditSearchParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/reddit/subreddit/search', params, options)
+    return this.client.get<Envelope<Post[]>>('/reddit/subreddit/search', params, options)
   }
 
   postComments(params: RedditPostCommentsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/reddit/post/comments', params, options)
+    return this.client.get<Envelope<Comment[]>>('/reddit/post/comments', params, options)
   }
 }

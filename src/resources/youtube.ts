@@ -1,5 +1,13 @@
 import type { CreatorCrawl } from '../client'
-import type { JsonRecord, RequestOptions } from '../types'
+import type {
+  Comment,
+  CreatorWithPosts,
+  Envelope,
+  JsonRecord,
+  Post,
+  RequestOptions,
+  Transcript,
+} from '../types'
 
 export type YouTubeChannelParams = { channelId?: string; handle?: string; url?: string }
 export type YouTubeChannelVideosParams = {
@@ -38,42 +46,42 @@ export class YouTube {
   constructor(private readonly client: CreatorCrawl) {}
 
   channel(params: YouTubeChannelParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/channel', params, options)
+    return this.client.get<Envelope<CreatorWithPosts>>('/youtube/channel', params, options)
   }
 
   channelVideos(params: YouTubeChannelVideosParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/channel/videos', params, options)
+    return this.client.get<Envelope<Post[]>>('/youtube/channel/videos', params, options)
   }
 
   channelShorts(params: YouTubeChannelShortsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/channel/shorts', params, options)
+    return this.client.get<Envelope<Post[]>>('/youtube/channel/shorts', params, options)
   }
 
   video(params: YouTubeVideoParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/video', params, options)
+    return this.client.get<Envelope<Post>>('/youtube/video', params, options)
   }
 
   transcript(params: YouTubeTranscriptParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/video/transcript', params, options)
+    return this.client.get<Envelope<Transcript>>('/youtube/video/transcript', params, options)
   }
 
   comments(params: YouTubeCommentsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/video/comments', params, options)
+    return this.client.get<Envelope<Comment[]>>('/youtube/video/comments', params, options)
   }
 
   search(params: YouTubeSearchParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/search', params, options)
+    return this.client.get<Envelope<Post[]>>('/youtube/search', params, options)
   }
 
   searchHashtag(params: YouTubeSearchHashtagParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/search/hashtag', params, options)
+    return this.client.get<Envelope<Post[]>>('/youtube/search/hashtag', params, options)
   }
 
   playlist(params: YouTubePlaylistParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/playlist', params, options)
+    return this.client.get<Envelope<JsonRecord>>('/youtube/playlist', params, options)
   }
 
   trendingShorts(_params: YouTubeTrendingShortsParams = {}, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/youtube/shorts/trending', undefined, options)
+    return this.client.get<Envelope<Post[]>>('/youtube/shorts/trending', undefined, options)
   }
 }

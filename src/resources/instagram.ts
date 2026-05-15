@@ -1,5 +1,14 @@
 import type { CreatorCrawl } from '../client'
-import type { JsonRecord, RequestOptions } from '../types'
+import type {
+  Comment,
+  Creator,
+  CreatorWithPosts,
+  Envelope,
+  JsonRecord,
+  Post,
+  RequestOptions,
+  Transcript,
+} from '../types'
 
 export type InstagramProfileParams = { handle: string }
 export type InstagramBasicProfileParams = { userId: string }
@@ -17,46 +26,46 @@ export class Instagram {
   constructor(private readonly client: CreatorCrawl) {}
 
   profile(params: InstagramProfileParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/profile', params, options)
+    return this.client.get<Envelope<CreatorWithPosts>>('/instagram/profile', params, options)
   }
 
   basicProfile(params: InstagramBasicProfileParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/basic-profile', params, options)
+    return this.client.get<Envelope<Creator>>('/instagram/basic-profile', params, options)
   }
 
   posts(params: InstagramPostsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/user/posts', params, options)
+    return this.client.get<Envelope<Post[]>>('/instagram/user/posts', params, options)
   }
 
   reels(params: InstagramReelsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/user/reels', params, options)
+    return this.client.get<Envelope<Post[]>>('/instagram/user/reels', params, options)
   }
 
   postInfo(params: InstagramPostInfoParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/post', params, options)
+    return this.client.get<Envelope<Post>>('/instagram/post', params, options)
   }
 
   comments(params: InstagramCommentsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/post/comments', params, options)
+    return this.client.get<Envelope<Comment[]>>('/instagram/post/comments', params, options)
   }
 
   transcript(params: InstagramTranscriptParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/media/transcript', params, options)
+    return this.client.get<Envelope<Transcript>>('/instagram/media/transcript', params, options)
   }
 
   storyHighlights(params: InstagramStoryHighlightsParams = {}, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/user/highlights', params, options)
+    return this.client.get<Envelope<JsonRecord[]>>('/instagram/user/highlights', params, options)
   }
 
   highlightsDetails(params: InstagramHighlightsDetailsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/user/highlight/detail', params, options)
+    return this.client.get<Envelope<JsonRecord>>('/instagram/user/highlight/detail', params, options)
   }
 
   searchReels(params: InstagramSearchReelsParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/reels/search', params, options)
+    return this.client.get<Envelope<Post[]>>('/instagram/reels/search', params, options)
   }
 
   embed(params: InstagramEmbedParams, options?: RequestOptions) {
-    return this.client.get<JsonRecord>('/instagram/user/embed', params, options)
+    return this.client.get<Envelope<JsonRecord>>('/instagram/user/embed', params, options)
   }
 }

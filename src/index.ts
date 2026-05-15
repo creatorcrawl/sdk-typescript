@@ -6,7 +6,29 @@ export {
   RateLimitError,
   UpstreamError,
 } from './errors'
-export type { CreatorCrawlOptions, JsonRecord, RequestOptions } from './types'
+export type {
+  Comment,
+  Company,
+  Creator,
+  CreatorCrawlOptions,
+  CreatorWithPosts,
+  Envelope,
+  Hashtag,
+  JsonRecord,
+  Media,
+  MiniCreator,
+  PageInfo,
+  Platform,
+  Post,
+  PostMusic,
+  PostType,
+  RequestOptions,
+  Song,
+  Subreddit,
+  SubredditWithPosts,
+  Transcript,
+  TranscriptSegment,
+} from './types'
 export type {
   TikTokCommentsParams,
   TikTokCreatorTranscriptsParams,
