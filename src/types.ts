@@ -1,5 +1,6 @@
 export type CreatorCrawlOptions = {
-  apiKey: string
+  apiKey?: string
+  accessToken?: string
   baseUrl?: string
   fetch?: typeof fetch
   timeout?: number

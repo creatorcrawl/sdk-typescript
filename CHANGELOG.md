@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Added OAuth bearer authentication through the `accessToken` client option.
+- Kept API-key authentication fully compatible through `apiKey`.
+
 ## 0.3.0
 
 ### Breaking changes

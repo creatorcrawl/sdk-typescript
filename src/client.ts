@@ -24,16 +24,21 @@ export class CreatorCrawl {
   readonly twitter: Twitter
   readonly reddit: Reddit
 
-  private readonly apiKey: string
+  private readonly authorizationHeaders: Record<string, string>
   private readonly baseUrl: string
   private readonly fetchImpl: typeof fetch
   private readonly timeout: number
 
   constructor(options: CreatorCrawlOptions) {
-    if (!options.apiKey) {
-      throw new Error('CreatorCrawl: apiKey is required')
+    if (!options.apiKey && !options.accessToken) {
+      throw new Error('CreatorCrawl: apiKey or accessToken is required')
     }
-    this.apiKey = options.apiKey
+    if (options.apiKey && options.accessToken) {
+      throw new Error('CreatorCrawl: provide apiKey or accessToken, not both')
+    }
+    this.authorizationHeaders = options.accessToken
+      ? { authorization: `Bearer ${options.accessToken}` }
+      : { 'x-api-key': options.apiKey as string }
     this.baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, '')
     this.fetchImpl = options.fetch ?? globalThis.fetch
     this.timeout = options.timeout ?? DEFAULT_TIMEOUT
@@ -66,7 +71,7 @@ export class CreatorCrawl {
       const response = await this.fetchImpl(url, {
         method: 'GET',
         headers: {
-          'x-api-key': this.apiKey,
+          ...this.authorizationHeaders,
           accept: 'application/json',
           'user-agent': '@creatorcrawl/sdk',
         },
