@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Build distribution files automatically when installing the SDK from its Git repository.
+
 ## 0.3.1
 
 - Added OAuth bearer authentication through the `accessToken` client option.
