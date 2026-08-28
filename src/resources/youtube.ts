@@ -28,9 +28,11 @@ export type YouTubeTranscriptParams = { url: string; language?: string }
 export type YouTubeCommentsParams = { url: string; continuationToken?: string; order?: string }
 export type YouTubeSearchParams = {
   query: string
-  uploadDate?: string
-  sortBy?: string
-  filter?: string
+  uploadDate?: 'today' | 'this_week' | 'this_month' | 'this_year'
+  sortBy?: 'relevance' | 'popular'
+  type?: 'videos' | 'shorts' | 'channels' | 'playlists'
+  duration?: 'under_3_min' | 'between_3_and_20_min' | 'over_20_min'
+  region?: string
   continuationToken?: string
   includeExtras?: boolean | string
 }
