@@ -13,7 +13,7 @@ import { Twitter } from './resources/twitter'
 import { YouTube } from './resources/youtube'
 import type { CreatorCrawlOptions, JsonRecord, RequestOptions } from './types'
 
-const DEFAULT_BASE_URL = 'https://app.creatorcrawl.com/api'
+const DEFAULT_BASE_URL = 'https://api.creatorcrawl.com'
 const DEFAULT_TIMEOUT = 30_000
 
 export class CreatorCrawl {

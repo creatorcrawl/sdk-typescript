@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+- Default base URL is now `https://api.creatorcrawl.com`. The legacy `https://app.creatorcrawl.com/api` base keeps working.
+
 ## 0.3.2
 
 - Build distribution files automatically when installing the SDK from its Git repository.

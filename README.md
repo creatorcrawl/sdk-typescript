@@ -170,7 +170,7 @@ cc.reddit.postComments({ url })
 ```ts
 const cc = new CreatorCrawl({
   apiKey: 'cc_...',
-  baseUrl: 'https://app.creatorcrawl.com/api', // optional
+  baseUrl: 'https://api.creatorcrawl.com', // optional
   timeout: 30_000,                             // optional, ms
   fetch: customFetch,                          // optional
 })
@@ -217,7 +217,7 @@ await cc.tiktok.profile({ handle: 'khaby.lame' }, { signal: controller.signal })
 
 - API docs: [creatorcrawl.com/mcp-docs](https://creatorcrawl.com/mcp-docs)
 - Pricing: [creatorcrawl.com/#pricing](https://creatorcrawl.com/#pricing)
-- MCP server: native MCP at `app.creatorcrawl.com/api/mcp` for AI agents
+- MCP server: native MCP at `api.creatorcrawl.com/mcp` for AI agents
 - Status / issues: [github.com/creatorcrawl/sdk-typescript/issues](https://github.com/creatorcrawl/sdk-typescript/issues)
 
 ## License
