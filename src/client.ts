@@ -5,6 +5,7 @@ import {
   RateLimitError,
   UpstreamError,
 } from './errors'
+import { Facebook } from './resources/facebook'
 import { Instagram } from './resources/instagram'
 import { LinkedIn } from './resources/linkedin'
 import { Reddit } from './resources/reddit'
@@ -23,6 +24,7 @@ export class CreatorCrawl {
   readonly linkedin: LinkedIn
   readonly twitter: Twitter
   readonly reddit: Reddit
+  readonly facebook: Facebook
 
   private readonly authorizationHeaders: Record<string, string>
   private readonly baseUrl: string
@@ -55,26 +57,41 @@ export class CreatorCrawl {
     this.linkedin = new LinkedIn(this)
     this.twitter = new Twitter(this)
     this.reddit = new Reddit(this)
+    this.facebook = new Facebook(this)
   }
 
-  async get<T = JsonRecord>(
+  get<T = JsonRecord>(
     path: string,
     query?: Record<string, string | number | boolean | undefined>,
     options?: RequestOptions,
   ): Promise<T> {
-    const url = this.buildUrl(path, query)
+    return this.request<T>('GET', this.buildUrl(path, query), undefined, options)
+  }
+
+  post<T = JsonRecord>(path: string, body: object, options?: RequestOptions): Promise<T> {
+    return this.request<T>('POST', this.buildUrl(path), body, options)
+  }
+
+  private async request<T>(
+    method: 'GET' | 'POST',
+    url: string,
+    body: object | undefined,
+    options?: RequestOptions,
+  ): Promise<T> {
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), this.timeout)
     const signal = options?.signal ?? controller.signal
 
     try {
       const response = await this.fetchImpl(url, {
-        method: 'GET',
+        method,
         headers: {
           ...this.authorizationHeaders,
           accept: 'application/json',
           'user-agent': '@creatorcrawl/sdk',
+          ...(body ? { 'content-type': 'application/json' } : {}),
         },
+        body: body ? JSON.stringify(body) : undefined,
         signal,
       })
 
@@ -119,10 +136,21 @@ export class CreatorCrawl {
   private errorFromResponse(status: number, body: unknown): CreatorCrawlError {
     const message = this.extractMessage(body) ?? `Request failed with status ${status}`
     if (status === 401) return new AuthenticationError(message, body)
+    if (status === 403) {
+      return this.errorCode(body) === 'upstream_forbidden'
+        ? new UpstreamError(message, body, status)
+        : new AuthenticationError(message, body)
+    }
     if (status === 402) return new InsufficientCreditsError(message, body)
     if (status === 429) return new RateLimitError(message, body)
     if (status === 502 || status === 503) return new UpstreamError(message, body, status)
     return new CreatorCrawlError(message, status, undefined, body)
+  }
+
+  private errorCode(body: unknown): unknown {
+    if (!body || typeof body !== 'object') return undefined
+    const error = (body as JsonRecord).error
+    return error && typeof error === 'object' ? (error as JsonRecord).code : undefined
   }
 
   private extractMessage(body: unknown): string | undefined {

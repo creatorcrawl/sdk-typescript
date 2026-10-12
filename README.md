@@ -2,9 +2,9 @@
 
 Official TypeScript / JavaScript SDK for the [CreatorCrawl](https://creatorcrawl.com) social media data API.
 
-One typed client, six platforms: **TikTok, Instagram, YouTube, LinkedIn, Twitter/X, and Reddit**. Profiles, posts, comments, transcripts, ads, search, and trending data as structured JSON.
+One typed client, seven platforms: **TikTok, Instagram, YouTube, LinkedIn, Twitter/X, Reddit, and Facebook**. Profiles, posts, comments, transcripts, ads, search, and trending data as structured JSON.
 
-- 60+ endpoints across six platforms
+- 80+ endpoints across seven platforms
 - Fully typed, ESM + CJS, zero runtime dependencies
 - Works in Node 18+, Bun, Deno, Cloudflare Workers, and browsers
 - Same endpoints are also available as a native MCP server for Claude, Cursor, Windsurf, and Zed
@@ -60,7 +60,7 @@ Every endpoint returns the same envelope:
     total?: number
   },
   meta: {
-    platform: 'tiktok' | 'instagram' | 'twitter' | 'youtube' | 'reddit' | 'linkedin',
+    platform: 'tiktok' | 'instagram' | 'twitter' | 'youtube' | 'reddit' | 'linkedin' | 'facebook',
     fetched_at: string        // ISO 8601
   }
 }
@@ -163,6 +163,29 @@ cc.reddit.subredditDetails({ subreddit })
 cc.reddit.subredditPosts({ subreddit })
 cc.reddit.subredditSearch({ subreddit, query })
 cc.reddit.postComments({ url })
+
+cc.facebook.profile({ url })
+cc.facebook.profilePosts({ url })
+cc.facebook.profileReels({ url })
+cc.facebook.profilePhotos({ url })
+cc.facebook.profileEvents({ url })
+cc.facebook.post({ url })
+cc.facebook.postComments({ url })
+cc.facebook.commentReplies({ feedback_id, expansion_token })
+cc.facebook.postTranscript({ url })
+cc.facebook.group({ url })
+cc.facebook.groupPosts({ url })
+cc.facebook.cityEvents({ url })
+cc.facebook.eventsSearch({ query })
+cc.facebook.eventDetails({ url })
+cc.facebook.marketplaceSearch({ query, lat, lng })
+cc.facebook.marketplaceItem({ url })
+cc.facebook.marketplaceLocationSearch({ query })
+cc.facebook.ad({ url })
+cc.facebook.adTranscript({ url })
+cc.facebook.adsSearch({ query })       // POST body, safe for long Ad Library cursors
+cc.facebook.companyAds({ pageId })     // POST body, safe for long Ad Library cursors
+cc.facebook.companiesSearch({ query })
 ```
 
 ## Configuration
@@ -192,12 +215,14 @@ import {
 try {
   await cc.tiktok.profile({ handle: 'khaby.lame' })
 } catch (err) {
-  if (err instanceof InsufficientCreditsError) {
+  if (err instanceof AuthenticationError) {
+    // missing or invalid API key (HTTP 401)
+  } else if (err instanceof InsufficientCreditsError) {
     // top up credits
   } else if (err instanceof RateLimitError) {
     // back off
   } else if (err instanceof UpstreamError) {
-    // upstream platform failed (HTTP 503, or 502 from older deployments); retry later
+    // upstream platform failed (HTTP 503, 502 from older deployments) or refused access (403 upstream_forbidden)
   } else if (err instanceof CreatorCrawlError) {
     console.error(err.status, err.message)
   }

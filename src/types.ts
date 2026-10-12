@@ -12,7 +12,14 @@ export type RequestOptions = {
 
 export type JsonRecord = Record<string, unknown>
 
-export type Platform = 'tiktok' | 'instagram' | 'twitter' | 'youtube' | 'reddit' | 'linkedin'
+export type Platform =
+  | 'tiktok'
+  | 'instagram'
+  | 'twitter'
+  | 'youtube'
+  | 'reddit'
+  | 'linkedin'
+  | 'facebook'
 
 export type PageInfo = {
   cursor: string | null
@@ -73,15 +80,7 @@ export type Media = {
   duration_seconds?: number
 }
 
-export type PostType =
-  | 'video'
-  | 'image'
-  | 'carousel'
-  | 'text'
-  | 'reel'
-  | 'short'
-  | 'live'
-  | 'story'
+export type PostType = 'video' | 'image' | 'carousel' | 'text' | 'reel' | 'short' | 'live' | 'story'
 
 export type PostMusic = {
   id: string

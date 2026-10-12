@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5
+
+- Added the `facebook` resource covering all 24 Facebook endpoints: profiles, profile posts/reels/photos/events, posts, comments, comment replies, video transcripts, groups, group posts, city events, event search and details, Marketplace search/item/location search, and the Meta Ad Library (ad, ad transcript, ad search, company ads, company search). `adsSearch` and `companyAds` use the POST variants so long pagination cursors work.
+- Added `client.post()` for JSON-body requests.
+- The API now returns HTTP 401 for missing or invalid API keys. 401 maps to `AuthenticationError`; 403 with `error.code === 'upstream_forbidden'` maps to `UpstreamError`, and any other 403 still maps to `AuthenticationError` for older API behaviour.
+
 ## 0.3.4
 
 - The API now returns HTTP 503 for upstream platform failures. The SDK maps both 502 and 503 to `UpstreamError`, which now carries the actual response status.
