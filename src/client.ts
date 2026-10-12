@@ -121,7 +121,7 @@ export class CreatorCrawl {
     if (status === 401) return new AuthenticationError(message, body)
     if (status === 402) return new InsufficientCreditsError(message, body)
     if (status === 429) return new RateLimitError(message, body)
-    if (status === 502) return new UpstreamError(message, body)
+    if (status === 502 || status === 503) return new UpstreamError(message, body, status)
     return new CreatorCrawlError(message, status, undefined, body)
   }
 
@@ -131,6 +131,10 @@ export class CreatorCrawl {
       const record = body as JsonRecord
       const candidate = record.error ?? record.message
       if (typeof candidate === 'string') return candidate
+      if (candidate && typeof candidate === 'object') {
+        const nested = (candidate as JsonRecord).message
+        if (typeof nested === 'string') return nested
+      }
     }
     return undefined
   }

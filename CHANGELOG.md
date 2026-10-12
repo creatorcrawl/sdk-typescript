@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.4
+
+- The API now returns HTTP 503 for upstream platform failures. The SDK maps both 502 and 503 to `UpstreamError`, which now carries the actual response status.
+- Error messages are read from the nested `{"error":{"code","message"}}` response shape.
+
 ## 0.3.3
 
 - Default base URL is now `https://api.creatorcrawl.com`. The legacy `https://app.creatorcrawl.com/api` base keeps working.

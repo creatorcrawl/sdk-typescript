@@ -196,6 +196,8 @@ try {
     // top up credits
   } else if (err instanceof RateLimitError) {
     // back off
+  } else if (err instanceof UpstreamError) {
+    // upstream platform failed (HTTP 503, or 502 from older deployments); retry later
   } else if (err instanceof CreatorCrawlError) {
     console.error(err.status, err.message)
   }
