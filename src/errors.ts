@@ -34,8 +34,13 @@ export class RateLimitError extends CreatorCrawlError {
 }
 
 export class UpstreamError extends CreatorCrawlError {
-  constructor(message = 'Upstream platform error', response?: unknown, status = 503) {
-    super(message, status, 'upstream_error', response)
+  constructor(
+    message = 'Upstream platform error',
+    response?: unknown,
+    status = 503,
+    code = 'upstream_error',
+  ) {
+    super(message, status, code, response)
     this.name = 'UpstreamError'
   }
 }

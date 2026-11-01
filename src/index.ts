@@ -22,12 +22,15 @@ export type {
   Post,
   PostMusic,
   PostType,
+  PostWithComments,
   RequestOptions,
   Song,
   Subreddit,
+  SubredditSearchResults,
   SubredditWithPosts,
   Transcript,
   TranscriptSegment,
+  YouTubeSearchResults,
 } from './types'
 export type {
   TikTokCommentsParams,

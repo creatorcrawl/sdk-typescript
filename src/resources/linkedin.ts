@@ -1,12 +1,5 @@
 import type { CreatorCrawl } from '../client'
-import type {
-  Company,
-  Creator,
-  Envelope,
-  JsonRecord,
-  Post,
-  RequestOptions,
-} from '../types'
+import type { Company, Creator, Envelope, JsonRecord, Post, RequestOptions } from '../types'
 
 export type LinkedInProfileParams = { url: string }
 export type LinkedInCompanyParams = { url: string }

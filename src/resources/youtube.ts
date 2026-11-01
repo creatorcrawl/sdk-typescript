@@ -7,6 +7,7 @@ import type {
   Post,
   RequestOptions,
   Transcript,
+  YouTubeSearchResults,
 } from '../types'
 
 export type YouTubeChannelParams = { channelId?: string; handle?: string; url?: string }
@@ -72,7 +73,7 @@ export class YouTube {
   }
 
   search(params: YouTubeSearchParams, options?: RequestOptions) {
-    return this.client.get<Envelope<Post[]>>('/youtube/search', params, options)
+    return this.client.get<Envelope<YouTubeSearchResults>>('/youtube/search', params, options)
   }
 
   searchHashtag(params: YouTubeSearchHashtagParams, options?: RequestOptions) {

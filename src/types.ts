@@ -204,3 +204,20 @@ export type SubredditWithPosts = {
   subreddit: Subreddit
   recent_posts: Post[]
 }
+
+export type SubredditSearchResults = {
+  posts: Post[]
+  comments: Comment[]
+}
+
+export type PostWithComments = {
+  post: Post
+  comments: Comment[]
+}
+
+export type YouTubeSearchResults = {
+  videos?: Post[]
+  shorts?: Post[]
+  channels?: Creator[]
+  playlists?: JsonRecord[]
+}

@@ -1,10 +1,11 @@
 import type { CreatorCrawl } from '../client'
 import type {
-  Comment,
   Envelope,
   Post,
+  PostWithComments,
   RequestOptions,
   Subreddit,
+  SubredditSearchResults,
   SubredditWithPosts,
 } from '../types'
 
@@ -13,7 +14,6 @@ export type RedditSearchParams = {
   sort?: string
   timeframe?: string
   after?: string
-  trim?: boolean | string
 }
 export type RedditSubredditDetailsParams = { subreddit?: string; url?: string }
 export type RedditSubredditPostsParams = {
@@ -21,7 +21,6 @@ export type RedditSubredditPostsParams = {
   timeframe?: string
   sort?: string
   after?: string
-  trim?: boolean | string
 }
 export type RedditSubredditSearchParams = {
   subreddit: string
@@ -33,7 +32,6 @@ export type RedditSubredditSearchParams = {
 export type RedditPostCommentsParams = {
   url: string
   cursor?: string
-  trim?: boolean | string
 }
 
 export class Reddit {
@@ -56,10 +54,14 @@ export class Reddit {
   }
 
   subredditSearch(params: RedditSubredditSearchParams, options?: RequestOptions) {
-    return this.client.get<Envelope<Post[]>>('/reddit/subreddit/search', params, options)
+    return this.client.get<Envelope<SubredditSearchResults>>(
+      '/reddit/subreddit/search',
+      params,
+      options,
+    )
   }
 
   postComments(params: RedditPostCommentsParams, options?: RequestOptions) {
-    return this.client.get<Envelope<Comment[]>>('/reddit/post/comments', params, options)
+    return this.client.get<Envelope<PostWithComments>>('/reddit/post/comments', params, options)
   }
 }

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- `CreatorCrawlError.code` and `UpstreamError.code` now carry the API's `error.code` (for example `upstream_not_found`, `upstream_rejected`, `upstream_unavailable`) instead of being `undefined` or always `upstream_error`.
+- The `timeout` option now also applies when a request passes its own `signal`.
+- `tiktok.trendingFeed` requires `region`, matching the API.
+- Fixed response types: `youtube.search` returns `{ videos, shorts, channels, playlists }`, `reddit.subredditSearch` returns `{ posts, comments }`, and `reddit.postComments` returns `{ post, comments }`.
+- Added missing query params: `cursor` on `tiktok.profileVideos`, `tiktok.followers`, and `tiktok.following`; `max_duration_seconds` on `tiktok.searchKeyword`; `page` on `instagram.searchReels`.
+- Removed the `trim` param from TikTok, Twitter, and Reddit methods; the API ignores it on those endpoints.
+
 ## 0.3.5
 
 - Added the `facebook` resource covering all 24 Facebook endpoints: profiles, profile posts/reels/photos/events, posts, comments, comment replies, video transcripts, groups, group posts, city events, event search and details, Marketplace search/item/location search, and the Meta Ad Library (ad, ad transcript, ad search, company ads, company search). `adsSearch` and `companyAds` use the POST variants so long pagination cursors work.

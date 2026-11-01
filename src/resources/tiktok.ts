@@ -18,33 +18,32 @@ export type TikTokProfileVideosParams = {
   handle?: string
   user_id?: string
   sort_by?: string
+  cursor?: number | string
   max_cursor?: number | string
   region?: string
-  trim?: boolean | string
 }
 export type TikTokVideoInfoParams = {
   url: string
   get_transcript?: boolean | string
   region?: string
-  trim?: boolean | string
 }
 export type TikTokTranscriptParams = {
   url: string
   language?: string
   use_ai_as_fallback?: boolean | string
 }
-export type TikTokCommentsParams = { url: string; cursor?: number | string; trim?: boolean | string }
+export type TikTokCommentsParams = { url: string; cursor?: number | string }
 export type TikTokCreatorTranscriptsParams = { handle: string; count?: number; language?: string }
 export type TikTokFollowersParams = {
   handle?: string
   user_id?: string
+  cursor?: number | string
   min_time?: number
-  trim?: boolean | string
 }
 export type TikTokFollowingParams = {
   handle: string
+  cursor?: number | string
   min_time?: number
-  trim?: boolean | string
 }
 export type TikTokLiveParams = { handle: string }
 export type TikTokSongDetailsParams = { clipId: string }
@@ -54,10 +53,10 @@ export type TikTokSearchKeywordParams = {
   date_posted?: string
   sort_by?: string
   region?: string
+  max_duration_seconds?: number | string
   cursor?: number | string
-  trim?: boolean | string
 }
-export type TikTokSearchUsersParams = { query: string; cursor?: number | string; trim?: boolean | string }
+export type TikTokSearchUsersParams = { query: string; cursor?: number | string }
 export type TikTokSearchTopParams = {
   query: string
   publish_time?: string
@@ -69,7 +68,6 @@ export type TikTokSearchHashtagParams = {
   hashtag: string
   region?: string
   cursor?: number | string
-  trim?: boolean | string
 }
 export type TikTokPopularCreatorsParams = {
   page?: number | string
@@ -99,7 +97,7 @@ export type TikTokPopularVideosParams = {
   orderBy?: string
   countryCode?: string
 }
-export type TikTokTrendingFeedParams = { region?: string; trim?: boolean | string }
+export type TikTokTrendingFeedParams = { region: string }
 
 export class TikTok {
   constructor(private readonly client: CreatorCrawl) {}
@@ -184,7 +182,7 @@ export class TikTok {
     return this.client.get<Envelope<Post[]>>('/tiktok/videos/popular', params, options)
   }
 
-  trendingFeed(params: TikTokTrendingFeedParams = {}, options?: RequestOptions) {
+  trendingFeed(params: TikTokTrendingFeedParams, options?: RequestOptions) {
     return this.client.get<Envelope<Post[]>>('/tiktok/get-trending-feed', params, options)
   }
 }

@@ -80,7 +80,11 @@ export class CreatorCrawl {
   ): Promise<T> {
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), this.timeout)
-    const signal = options?.signal ?? controller.signal
+    const external = options?.signal
+    const forwardAbort = () => controller.abort(external?.reason)
+    if (external?.aborted) forwardAbort()
+    else external?.addEventListener('abort', forwardAbort, { once: true })
+    const signal = controller.signal
 
     try {
       const response = await this.fetchImpl(url, {
@@ -104,6 +108,7 @@ export class CreatorCrawl {
       return data as T
     } finally {
       clearTimeout(timer)
+      external?.removeEventListener('abort', forwardAbort)
     }
   }
 
@@ -135,22 +140,26 @@ export class CreatorCrawl {
 
   private errorFromResponse(status: number, body: unknown): CreatorCrawlError {
     const message = this.extractMessage(body) ?? `Request failed with status ${status}`
+    const code = this.errorCode(body)
     if (status === 401) return new AuthenticationError(message, body)
     if (status === 403) {
-      return this.errorCode(body) === 'upstream_forbidden'
-        ? new UpstreamError(message, body, status)
+      return code === 'upstream_forbidden'
+        ? new UpstreamError(message, body, status, code)
         : new AuthenticationError(message, body)
     }
     if (status === 402) return new InsufficientCreditsError(message, body)
     if (status === 429) return new RateLimitError(message, body)
-    if (status === 502 || status === 503) return new UpstreamError(message, body, status)
-    return new CreatorCrawlError(message, status, undefined, body)
+    if (status === 502 || status === 503) return new UpstreamError(message, body, status, code)
+    return new CreatorCrawlError(message, status, code, body)
   }
 
-  private errorCode(body: unknown): unknown {
+  private errorCode(body: unknown): string | undefined {
     if (!body || typeof body !== 'object') return undefined
     const error = (body as JsonRecord).error
-    return error && typeof error === 'object' ? (error as JsonRecord).code : undefined
+    if (!error || typeof error !== 'object') return undefined
+    const { code, type } = error as JsonRecord
+    if (typeof code === 'string') return code
+    return typeof type === 'string' ? type : undefined
   }
 
   private extractMessage(body: unknown): string | undefined {

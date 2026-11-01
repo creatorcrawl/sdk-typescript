@@ -19,7 +19,7 @@ export type InstagramCommentsParams = { url: string; cursor?: string }
 export type InstagramTranscriptParams = { url: string }
 export type InstagramStoryHighlightsParams = { user_id?: string; handle?: string }
 export type InstagramHighlightsDetailsParams = { id: string }
-export type InstagramSearchReelsParams = { query: string }
+export type InstagramSearchReelsParams = { query: string; page?: number | string }
 export type InstagramEmbedParams = { handle: string }
 
 export class Instagram {
@@ -58,7 +58,11 @@ export class Instagram {
   }
 
   highlightsDetails(params: InstagramHighlightsDetailsParams, options?: RequestOptions) {
-    return this.client.get<Envelope<JsonRecord>>('/instagram/user/highlight/detail', params, options)
+    return this.client.get<Envelope<JsonRecord>>(
+      '/instagram/user/highlight/detail',
+      params,
+      options,
+    )
   }
 
   searchReels(params: InstagramSearchReelsParams, options?: RequestOptions) {

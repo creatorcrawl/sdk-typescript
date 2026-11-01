@@ -9,8 +9,8 @@ import type {
 } from '../types'
 
 export type TwitterProfileParams = { handle: string }
-export type TwitterTweetParams = { url: string; trim?: boolean | string }
-export type TwitterUserTweetsParams = { handle: string; trim?: boolean | string }
+export type TwitterTweetParams = { url: string }
+export type TwitterUserTweetsParams = { handle: string }
 export type TwitterTranscriptParams = { url: string }
 export type TwitterCommunityParams = { url: string }
 export type TwitterCommunityTweetsParams = { url: string }

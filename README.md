@@ -142,13 +142,13 @@ cc.youtube.video({ url })
 cc.youtube.search({ query })
 cc.youtube.transcript({ url })
 cc.youtube.comments({ url })
-cc.youtube.playlist({ url })
+cc.youtube.playlist({ playlist_id })
 
 cc.linkedin.profile({ url })
 cc.linkedin.company({ url })
 cc.linkedin.companyPosts({ url })
 cc.linkedin.post({ url })
-cc.linkedin.adsSearch({ query })
+cc.linkedin.adsSearch({ keyword })
 cc.linkedin.ad({ url })
 
 cc.twitter.profile({ handle })
@@ -224,10 +224,12 @@ try {
   } else if (err instanceof UpstreamError) {
     // upstream platform failed (HTTP 503, 502 from older deployments) or refused access (403 upstream_forbidden)
   } else if (err instanceof CreatorCrawlError) {
-    console.error(err.status, err.message)
+    console.error(err.status, err.code, err.message)
   }
 }
 ```
+
+`err.code` carries the API's `error.code`, e.g. `upstream_not_found` (404), `upstream_rejected` (422), `upstream_error` or `upstream_unavailable` (503).
 
 ## Cancellation
 
