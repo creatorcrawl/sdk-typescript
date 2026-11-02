@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added 22 LinkedIn methods: `searchPeople`, `searchCompanies`, `searchAccounts`, `searchLeads`, `searchJobs`, `searchLocation`, `searchPosts`, `searchGroups`, `searchServices`, `profileByEmail`, `profileEmail`, `profilePosts`, `profileComments`, `profileReactions`, `companyPeopleStats`, `companyInsights`, `job`, `postComments`, `commentReplies`, `postReactions`, `commentReactions`, and `group`. Each returns `{ data: Record<string, unknown>, meta }`.
 - `CreatorCrawlError.code` and `UpstreamError.code` now carry the API's `error.code` (for example `upstream_not_found`, `upstream_rejected`, `upstream_unavailable`) instead of being `undefined` or always `upstream_error`.
 - The `timeout` option now also applies when a request passes its own `signal`.
 - `tiktok.trendingFeed` requires `region`, matching the API.
